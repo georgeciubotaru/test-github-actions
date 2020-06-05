@@ -13,10 +13,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+
       - name: Get npm cache directory
         id: npm-cache
         run: |
@@ -30,6 +27,6 @@ jobs:
       - uses: actions/setup-node@v1
       - run: npm install && npm install -g @lhci/cli@0.4.x
       - run: npm run export
-      - run: lhci autorun --upload.target=temporary-public-storage --collect.staticDistDir=__sapper__/export --collect.url=http://localhost/about.html
+      - run: lhci autorun --upload.target=temporary-public-storage --collect.staticDistDir=__sapper__/export
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
