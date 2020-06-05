@@ -1,7 +1,7 @@
 name: LightHouse
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
-on: [pull_request]
+on: [push]
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "deploy"
@@ -27,6 +27,6 @@ jobs:
       - uses: actions/setup-node@v1
       - run: npm install && npm install -g @lhci/cli@0.4.x
       - run: npm run export
-      - run: lhci autorun --upload.target=temporary-public-storage --collect.staticDistDir=__sapper__/export
+      - run: lhci autorun --upload.target=temporary-public-storage --collect.staticDistDir=__sapper__/export --collect.url=${{ secrets.LHCI_URLS }}
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
