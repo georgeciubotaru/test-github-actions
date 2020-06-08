@@ -27,11 +27,8 @@ jobs:
       - uses: actions/setup-node@v1
       - run: npm install && npm install -g @lhci/cli@0.4.x
       - run: npm run export
-      - run: lhci autorun --upload.target=temporary-public-storage --collect.staticDistDir=./__sapper__/export
-        with:
-          collect:
-            url:
-              - http://localhost/index.html
-              - http://localhost/about.html
+      - run: |
+          echo "lhci autorun --upload.target=temporary-public-storage --collect.staticDistDir=__sapper__/export $LHCI_URLS"
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          LHCI_URLS: ${{ secrets.LHCI_URLS}}
